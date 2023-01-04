@@ -37,33 +37,40 @@ func calTotalScore(guide []string) int {
 func calSingleRoundScore(roundGuide string) int {
 	/*
 		!Rules
-		* A, X -> Rock (1)
-		* B, Y -> Paper (2)
-		* C, Z -> Scissors (3)
+		* A -> Rock (1)
+		* B -> Paper (2)
+		* C -> Scissors (3)
+
+		* X -> lose
+		* Y -> draw
+		* Z -> win
+
+
 	*/
 	var chosen []string = strings.Split(roundGuide, " ")
 	var score int = 0
 
 	if chosen[1] == "X" {
-		score += 1
+		score += 0
 	} else if chosen[1] == "Y" {
-		score += 2
-	} else if chosen[1] == "Z" {
 		score += 3
+	} else if chosen[1] == "Z" {
+		score += 6
 	}
 
-	if (chosen[1] == "X" && chosen[0] == "C") ||
-		(chosen[1] == "Y" && chosen[0] == "A") ||
-		(chosen[1] == "Z" && chosen[0] == "B") {
-		// win
-		score += 6
-	} else if (chosen[1] == "X" && chosen[0] == "A") ||
+	if (chosen[1] == "Z" && chosen[0] == "C") ||
+		(chosen[1] == "X" && chosen[0] == "B") ||
+		(chosen[1] == "Y" && chosen[0] == "A") {
+		// rock
+		score += 1
+	} else if (chosen[1] == "X" && chosen[0] == "C") ||
 		(chosen[1] == "Y" && chosen[0] == "B") ||
-		(chosen[1] == "Z" && chosen[0] == "C") {
-		// draw
-		score += 3
+		(chosen[1] == "Z" && chosen[0] == "A") {
+		// paper
+		score += 2
 	} else {
-		score += 0
+		// scissors
+		score += 3
 	}
 
 	return score
